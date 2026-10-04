@@ -1,0 +1,14 @@
+{
+  "name": "Skin Ritual",
+  "short_name": "Skin Ritual",
+  "description": "Guided morning and night skincare with ntfy reminders",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e9f2f1",
+  "theme_color": "#10302f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
