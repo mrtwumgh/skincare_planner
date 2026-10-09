@@ -1,229 +1,720 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#e9f2f1">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-<title>Skin Ritual</title>
-<style>
-body[data-r=am]{--bg:#e9f2f1;--card:#fff;--ink:#10302f;--mut:#4d6b69;--acc:#0b6e6e;--onacc:#fff;--fill:#f2b134;--on:#10302f;--line:#cfe0de}
-body[data-r=pm]{--bg:#14172a;--card:#1e2240;--ink:#e9e8f5;--mut:#9b9ec4;--acc:#a99cff;--onacc:#14172a;--fill:#a99cff;--on:#14172a;--line:#2f345c}
-body[data-r=body]{--bg:#1d4e6b;--card:#266282;--ink:#eaf6fb;--mut:#a9cde0;--acc:#7fd6e8;--onacc:#0d2f42;--fill:#7fd6e8;--on:#0d2f42;--line:#3b7a9c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Avenir Next","Segoe UI",Roboto,system-ui,sans-serif;transition:background .4s,color .4s;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-main{max-width:540px;margin:0 auto;padding:18px 16px 40px}
-h1{margin:6px 0 0;font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
-#date{margin:0 0 16px;color:var(--mut)}
-.tabs{display:flex;gap:6px;padding:5px;background:var(--card);border-radius:999px}
-.tabs button{flex:1;padding:10px;border:0;border-radius:999px;background:transparent;color:var(--mut);font:inherit;font-weight:700}
-.tabs .on{background:var(--acc);color:var(--onacc)}
-.bar{height:8px;background:var(--line);border-radius:4px;margin:18px 0 6px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--fill);transition:width .35s}
-#prog{margin:0 0 14px;color:var(--mut);font-size:.9rem}
-article{display:flex;gap:12px;background:var(--card);border-radius:20px;padding:16px;margin-bottom:12px;transition:opacity .3s}
-article.done{opacity:.5}
-.num{flex:none;width:30px;height:30px;border-radius:10px;background:var(--line);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:.9rem}
-.body{flex:1;min-width:0}
-h2{margin:0;font-size:1.1rem}
-.prod{width:100%;margin:6px 0 8px;padding:7px 10px;border:1px dashed var(--line);border-radius:8px;background:transparent;color:var(--acc);font:inherit;font-weight:700}
-article p{margin:0 0 10px;font-size:.95rem}
-.timer{padding:8px 14px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);border-radius:999px;font:inherit;font-size:.9rem;font-weight:600}
-.timer:disabled{opacity:.7}
-.check{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--acc);background:transparent;color:var(--on);font-size:1.2rem;font-weight:800}
-.done .check{background:var(--fill);border-color:var(--fill)}
-button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--fill);outline-offset:2px}
-details{background:var(--card);border-radius:14px;padding:16px;margin-top:20px}
-summary{font-weight:700}
-label{display:block;margin-top:14px;font-size:.85rem;color:var(--mut)}
-.f{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}.row>div{flex:1 1 90px}
-.btn{margin-top:14px;padding:13px;width:100%;border:0;border-radius:12px;background:var(--acc);color:var(--onacc);font:inherit;font-weight:700}
-.btn.alt{background:transparent;border:1.5px solid var(--acc);color:var(--acc)}
-.small{font-size:.85rem;color:var(--mut)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e9f2f1">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Skin Ritual</title>
+  <style>
+    body[data-r=am] {
+      --bg: #e9f2f1;
+      --card: #fff;
+      --ink: #10302f;
+      --mut: #4d6b69;
+      --acc: #0b6e6e;
+      --onacc: #fff;
+      --fill: #f2b134;
+      --on: #10302f;
+      --line: #cfe0de
+    }
+
+    body[data-r=pm] {
+      --bg: #14172a;
+      --card: #1e2240;
+      --ink: #e9e8f5;
+      --mut: #9b9ec4;
+      --acc: #a99cff;
+      --onacc: #14172a;
+      --fill: #a99cff;
+      --on: #14172a;
+      --line: #2f345c
+    }
+
+    body[data-r=body] {
+      --bg: #1d4e6b;
+      --card: #266282;
+      --ink: #eaf6fb;
+      --mut: #a9cde0;
+      --acc: #7fd6e8;
+      --onacc: #0d2f42;
+      --fill: #7fd6e8;
+      --on: #0d2f42;
+      --line: #3b7a9c
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.55 "Avenir Next", "Segoe UI", Roboto, system-ui, sans-serif;
+      transition: background .4s, color .4s;
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom)
+    }
+
+    main {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 18px 16px 40px
+    }
+
+    h1 {
+      margin: 6px 0 0;
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -.02em
+    }
+
+    #date {
+      margin: 0 0 16px;
+      color: var(--mut)
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 5px;
+      background: var(--card);
+      border-radius: 999px
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--mut);
+      font: inherit;
+      font-weight: 700
+    }
+
+    .tabs .on {
+      background: var(--acc);
+      color: var(--onacc)
+    }
+
+    .bar {
+      height: 8px;
+      background: var(--line);
+      border-radius: 4px;
+      margin: 18px 0 6px;
+      overflow: hidden
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--fill);
+      transition: width .35s
+    }
+
+    #prog {
+      margin: 0 0 14px;
+      color: var(--mut);
+      font-size: .9rem
+    }
+
+    article {
+      display: flex;
+      gap: 12px;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: opacity .3s
+    }
+
+    article.done {
+      opacity: .5
+    }
+
+    .num {
+      flex: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: var(--line);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: .9rem
+    }
+
+    .body {
+      flex: 1;
+      min-width: 0
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.1rem
+    }
+
+    .prod {
+      width: 100%;
+      margin: 6px 0 8px;
+      padding: 7px 10px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--acc);
+      font: inherit;
+      font-weight: 700
+    }
+
+    article p {
+      margin: 0 0 10px;
+      font-size: .95rem
+    }
+
+    .timer {
+      padding: 8px 14px;
+      border: 1.5px solid var(--acc);
+      background: transparent;
+      color: var(--acc);
+      border-radius: 999px;
+      font: inherit;
+      font-size: .9rem;
+      font-weight: 600
+    }
+
+    .timer:disabled {
+      opacity: .7
+    }
+
+    .check {
+      flex: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--acc);
+      background: transparent;
+      color: var(--on);
+      font-size: 1.2rem;
+      font-weight: 800
+    }
+
+    .done .check {
+      background: var(--fill);
+      border-color: var(--fill)
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--fill);
+      outline-offset: 2px
+    }
+
+    details {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 20px
+    }
+
+    summary {
+      font-weight: 700
+    }
+
+    label {
+      display: block;
+      margin-top: 14px;
+      font-size: .85rem;
+      color: var(--mut)
+    }
+
+    .f {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--ink);
+      font: inherit
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-end
+    }
+
+    .row>div {
+      flex: 1 1 90px
+    }
+
+    .btn {
+      margin-top: 14px;
+      padding: 13px;
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: var(--acc);
+      color: var(--onacc);
+      font: inherit;
+      font-weight: 700
+    }
+
+    .btn.alt {
+      background: transparent;
+      border: 1.5px solid var(--acc);
+      color: var(--acc)
+    }
+
+    .small {
+      font-size: .85rem;
+      color: var(--mut)
+    }
+
+    article.skip {
+      opacity: .55
+    }
+
+    .note {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--line);
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 700
+    }
+
+    #streak {
+      margin: -10px 0 16px;
+      font-weight: 700
+    }
+
+    .chk {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+      font-size: .95rem;
+      color: var(--ink)
+    }
+
+    .chk input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--acc)
+    }
+
+    .cal {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 12px
+    }
+
+    .cal .dow {
+      font-size: .75rem;
+      color: var(--mut);
+      text-align: center
+    }
+
+    .day {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: center;
+      padding: 6px 0;
+      border-radius: 8px;
+      background: var(--bg);
+      font-size: .72rem;
+      color: var(--mut)
+    }
+
+    .day.today {
+      outline: 2px solid var(--acc)
+    }
+
+    .dots {
+      display: flex;
+      gap: 3px
+    }
+
+    .dots i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--line)
+    }
+
+    .dots i.am {
+      background: #f2b134
+    }
+
+    .dots i.pm {
+      background: #a99cff
+    }
+
+    .dots i.body {
+      background: #7fd6e8
+    }
+
+    .key {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: .8rem;
+      color: var(--mut)
+    }
+
+    .key span {
+      display: flex;
+      gap: 5px;
+      align-items: center
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important
+      }
+    }
+  </style>
 </head>
+
 <body data-r="am">
-<main>
-  <h1>Skin Ritual</h1>
-  <p id="date"></p>
-  <nav class="tabs"><button data-r="am">Morning</button><button data-r="pm">Night</button><button data-r="body">Shower</button></nav>
-  <div class="bar"><i id="fill"></i></div>
-  <p id="prog"></p>
-  <section id="steps"></section>
+  <main>
+    <h1>Skin Ritual</h1>
+    <p id="date"></p>
+    <p id="streak"></p>
+    <nav class="tabs"><button data-r="am">Morning</button><button data-r="pm">Night</button><button
+        data-r="body">Shower</button></nav>
+    <div class="bar"><i id="fill"></i></div>
+    <p id="prog"></p>
+    <section id="steps"></section>
 
-  <details id="cfg">
-    <summary>Reminders (ntfy)</summary>
-    <p class="small">Install the ntfy app on your phone and subscribe to the topic below. Saving queues the next 3 days of reminders on the ntfy server, so open this app at least every 3 days to top them up.</p>
-    <label for="topic">Topic (keep it long and random, since ntfy.sh topics are public)</label>
-    <div class="row"><div><input class="f" id="topic" autocapitalize="off" autocomplete="off"></div><button class="btn alt" id="gen" style="margin:0;width:auto">Generate</button></div>
-    <label for="server">Server</label>
-    <input class="f" id="server" autocapitalize="off">
-    <div class="row">
-      <div><label for="am">Morning time</label><input class="f" type="time" id="am"></div>
-      <div><label for="pm">Night time</label><input class="f" type="time" id="pm"></div>
-      <div><label for="body">Shower time</label><input class="f" type="time" id="body"></div>
-    </div>
-    <button class="btn" id="save">Save and schedule</button>
-    <button class="btn alt" id="test">Send test notification</button>
-    <p class="small" id="status"></p>
-    <p class="small">Changing the times does not cancel reminders already queued, so you may get a few doubles for up to 3 days.</p>
-  </details>
-  <p class="small" style="margin-top:18px">Patch-test any new product on your jawline for 24 hours before using it on your face. This is general guidance, not medical advice.</p>
-</main>
+    <details id="hist">
+      <summary>Last 4 weeks</summary>
+      <div class="cal" id="cal"></div>
+      <div class="key"><span><span class="dots"><i class="am"></i></span>Morning</span><span><span class="dots"><i
+              class="pm"></i></span>Night</span><span><span class="dots"><i class="body"></i></span>Shower</span></div>
+    </details>
 
-<script>
-// ---- EDIT HERE: your routine. Product names can also be typed in directly in the app. ----
-const ROUTINES = {
-  am: { icon: '☀️', title: 'Morning skincare', steps: [
-    { t: 'Cleanse', p: 'CeraVe Hydrating Cleanser', wait: 60,
-      d: 'Wet your face with lukewarm water (hot water strips dry skin). Work a coin-sized amount into your palms and massage in small circles for a full 60 seconds: forehead, nose, cheeks, chin, jawline, then the neck. This cleanser is creamy and does not foam, so do not add more to chase suds. Rinse well and pat dry with a clean towel, leaving your skin slightly damp.' },
-    { t: 'Hyaluronic acid serum', p: 'Hyaluronic acid serum', wait: 60,
-      h: 'Ideas: CeraVe Hydrating Hyaluronic Acid Serum, The Ordinary Hyaluronic Acid 2% + B5.',
-      d: 'Apply while your face is still damp, because hyaluronic acid holds water and needs some to hold. Press 3 to 4 drops over your face and neck with your palms. Wait a minute, then go straight to moisturiser so the water stays in your skin.' },
-    { t: 'Moisturise', p: 'CeraVe Daily Moisturizing Lotion', wait: 0,
-      d: 'Take a coin-sized amount, warm it between your fingers and smooth it upward over your face and neck. Add a little extra on dry spots like the cheeks. This seals in the serum, so do not skip it even if your face feels oily later in the day.' },
-    { t: 'Sunscreen', p: 'Sunscreen SPF 30 to 50', wait: 120,
-      h: 'Ideas: Beauty of Joseon Relief Sun SPF 50+, La Roche-Posay Anthelios, Neutrogena Hydro Boost Water Gel SPF 50.',
-      d: 'Last step, every morning. Squeeze out two finger-lengths for your face and neck. Dot it on the forehead, cheeks, nose and chin, then blend, including the ears and neck. Sun darkens acne scars and keeps them visible for longer, so this protects your results. Wait 2 minutes before heading out and reapply after 2 to 3 hours in direct sun.' }
-  ]},
-  pm: { icon: '🌙', title: 'Night skincare', steps: [
-    { t: 'Cleanse', p: 'CeraVe Hydrating Cleanser', wait: 60,
-      d: 'Wash off the day. If you wore sunscreen, do a quick first wash to lift it, then a second wash with a 60-second massage in small circles over your face and neck. Rinse with lukewarm water and pat dry, leaving your skin slightly damp.' },
-    { t: 'Hyaluronic acid serum', p: 'Hyaluronic acid serum', wait: 60,
-      h: 'Ideas: CeraVe Hydrating Hyaluronic Acid Serum, The Ordinary Hyaluronic Acid 2% + B5.',
-      d: 'Same as the morning: 3 to 4 drops pressed over damp skin. It goes first because it is the thinnest layer and it prepares your skin for the niacinamide. Wait a minute.' },
-    { t: 'Niacinamide serum', p: 'Niacinamide serum', wait: 60,
-      h: 'Ideas: The Ordinary Niacinamide 10% + Zinc 1%, Good Molecules Niacinamide Serum.',
-      d: 'Apply a thin layer, 3 to 4 drops, with extra on acne scars, dark marks and dull areas. Keep it away from your eyes. It fades marks and helps your skin hold moisture, but expect results after 8 to 12 weeks of steady use. If it stings or turns red, use it every other night for the first 2 weeks. If it rolls into crumbs on your skin, use less.' },
-    { t: 'Moisturise', p: 'CeraVe Daily Moisturizing Lotion', wait: 0,
-      d: 'Use a slightly more generous layer than in the morning. Press it into the cheeks and any flaky areas, then smooth it over the rest of your face and neck. Your skin repairs itself overnight and this seals in everything you just applied.' }
-  ]},
-  body: { icon: '🚿', title: 'Shower and body care', steps: [
-    { t: 'Body wash', p: 'Body wash', wait: 0,
-      h: 'Ideas: Dove Deeply Nourishing Body Wash, CeraVe Hydrating Body Wash.',
-      d: 'Use lukewarm water and keep the shower to about 10 minutes. Lather the body wash on your hands or a clean cloth and wash from the neck down, including the back, chest and shoulders where breakouts like to hide. Keep it off your face. Rinse well, then towel-dry gently and leave your skin slightly damp.' },
-    { t: 'Body lotion', p: 'Body lotion', wait: 0,
-      h: 'Ideas: Vaseline Intensive Care Deep Moisture, Nivea Body Milk, or CeraVe Daily Moisturizing Lotion in a large bottle.',
-      d: 'Within 3 minutes of leaving the shower, while your skin is still slightly damp, apply lotion in long strokes from your arms down to your legs. Spend extra time on elbows, knees, shins and feet, which dry out first. Give it a minute to absorb before you dress.' }
-  ]}
-};
-// ------------------------------------------------------------------------------------------
+    <details id="cfg">
+      <summary>Reminders</summary>
+      <p class="small">Reminders come as normal phone notifications through your strength-push server. A reminder is
+        skipped if you have already finished that routine today. Edit the times, then tap Save.</p>
+      <div class="row">
+        <div><label for="am">Morning time</label><input class="f" type="time" id="am"></div>
+        <div><label for="pm">Night time</label><input class="f" type="time" id="pm"></div>
+        <div><label for="body">Shower time</label><input class="f" type="time" id="body"></div>
+      </div>
+      <label class="chk"><input type="checkbox" id="nudge"> Nudge me again 30 minutes later if a routine isn't
+        done</label>
+      <label class="chk"><input type="checkbox" id="spfOn"> Remind me to reapply sunscreen</label>
+      <div class="row">
+        <div><label for="spf">Sunscreen reapply time</label><input class="f" type="time" id="spf"></div>
+        <div><label for="niaStart">First niacinamide night</label><input class="f" type="date" id="niaStart"></div>
+      </div>
+      <p class="small">For the first 14 nights from that date, niacinamide is every other night so your skin can adjust.
+        After that it's every night.</p>
+      <button class="btn" id="save">Turn on reminders</button>
+      <button class="btn alt" id="test">Send test notification</button>
+      <button class="btn alt" id="off">Turn off reminders</button>
+      <p class="small" id="status" role="status"></p>
+    </details>
+    <p class="small" style="margin-top:18px">Patch-test any new product on your jawline for 24 hours before using it on
+      your face. This is general guidance, not medical advice.</p>
+  </main>
 
-const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-const store = {
-  get(k, f) { try { const v = localStorage.getItem(k); return v === null ? f : JSON.parse(v); } catch { return f; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
-};
-const cfg = Object.assign({ server: 'https://ntfy.sh', topic: '', am: '05:15', pm: '21:00', body: '20:30' }, store.get('cfg', {}));
-const today = () => new Date().toLocaleDateString('en-CA');
-let cur = new URLSearchParams(location.search).get('r') || (new Date().getHours() < 14 ? 'am' : 'pm');
-if (!ROUTINES[cur]) cur = 'am';
+  <script>
+    // ---- EDIT HERE: your routine. Product names can also be typed in directly in the app. ----
+    const ROUTINES = {
+      am: {
+        icon: '☀️', title: 'Morning skincare', steps: [
+          {
+            t: 'Cleanse', p: 'CeraVe Hydrating Cleanser', wait: 60,
+            d: 'Wet your face with lukewarm water (hot water strips dry skin). Work a coin-sized amount into your palms and massage in small circles for a full 60 seconds: forehead, nose, cheeks, chin, jawline, then the neck. This cleanser is creamy and does not foam, so do not add more to chase suds. Rinse well and pat dry with a clean towel, leaving your skin slightly damp.'
+          },
+          {
+            t: 'Hyaluronic acid serum', p: 'Hyaluronic acid serum', wait: 60,
+            h: 'Ideas: CeraVe Hydrating Hyaluronic Acid Serum, The Ordinary Hyaluronic Acid 2% + B5.',
+            d: 'Apply while your face is still damp, because hyaluronic acid holds water and needs some to hold. Press 3 to 4 drops over your face and neck with your palms. Wait a minute, then go straight to moisturiser so the water stays in your skin.'
+          },
+          {
+            t: 'Moisturise', p: 'CeraVe Daily Moisturizing Lotion', wait: 0,
+            d: 'Take a coin-sized amount, warm it between your fingers and smooth it upward over your face and neck. Add a little extra on dry spots like the cheeks. This seals in the serum, so do not skip it even if your face feels oily later in the day.'
+          },
+          {
+            t: 'Sunscreen', p: 'Sunscreen SPF 30 to 50', wait: 120,
+            h: 'Ideas: Beauty of Joseon Relief Sun SPF 50+, La Roche-Posay Anthelios, Neutrogena Hydro Boost Water Gel SPF 50.',
+            d: 'Last step, every morning. Squeeze out two finger-lengths for your face and neck. Dot it on the forehead, cheeks, nose and chin, then blend, including the ears and neck. Sun darkens acne scars and keeps them visible for longer, so this protects your results. Wait 2 minutes before heading out and reapply after 2 to 3 hours in direct sun.'
+          }
+        ]
+      },
+      pm: {
+        icon: '🌙', title: 'Night skincare', steps: [
+          {
+            t: 'Cleanse', p: 'CeraVe Hydrating Cleanser', wait: 60,
+            d: 'Wash off the day. If you wore sunscreen, do a quick first wash to lift it, then a second wash with a 60-second massage in small circles over your face and neck. Rinse with lukewarm water and pat dry, leaving your skin slightly damp.'
+          },
+          {
+            t: 'Hyaluronic acid serum', p: 'Hyaluronic acid serum', wait: 60,
+            h: 'Ideas: CeraVe Hydrating Hyaluronic Acid Serum, The Ordinary Hyaluronic Acid 2% + B5.',
+            d: 'Same as the morning: 3 to 4 drops pressed over damp skin. It goes first because it is the thinnest layer and it prepares your skin for the niacinamide. Wait a minute.'
+          },
+          {
+            t: 'Niacinamide serum', p: 'Niacinamide serum', wait: 60,
+            h: 'Ideas: The Ordinary Niacinamide 10% + Zinc 1%, Good Molecules Niacinamide Serum.',
+            d: 'Apply a thin layer, 3 to 4 drops, with extra on acne scars, dark marks and dull areas. Keep it away from your eyes. It fades marks and helps your skin hold moisture, but expect results after 8 to 12 weeks of steady use. If it stings or turns red, use it every other night for the first 2 weeks. If it rolls into crumbs on your skin, use less.'
+          },
+          {
+            t: 'Moisturise', p: 'CeraVe Daily Moisturizing Lotion', wait: 0,
+            d: 'Use a slightly more generous layer than in the morning. Press it into the cheeks and any flaky areas, then smooth it over the rest of your face and neck. Your skin repairs itself overnight and this seals in everything you just applied.'
+          }
+        ]
+      },
+      body: {
+        icon: '🚿', title: 'Shower and body care', steps: [
+          {
+            t: 'Body wash', p: 'Body wash', wait: 0,
+            h: 'Ideas: Dove Deeply Nourishing Body Wash, CeraVe Hydrating Body Wash.',
+            d: 'Use lukewarm water and keep the shower to about 10 minutes. Lather the body wash on your hands or a clean cloth and wash from the neck down, including the back, chest and shoulders where breakouts like to hide. Keep it off your face. Rinse well, then towel-dry gently and leave your skin slightly damp.'
+          },
+          {
+            t: 'Body lotion', p: 'Body lotion', wait: 0,
+            h: 'Ideas: Vaseline Intensive Care Deep Moisture, Nivea Body Milk, or CeraVe Daily Moisturizing Lotion in a large bottle.',
+            d: 'Within 3 minutes of leaving the shower, while your skin is still slightly damp, apply lotion in long strokes from your arms down to your legs. Spend extra time on elbows, knees, shins and feet, which dry out first. Give it a minute to absorb before you dress.'
+          }
+        ]
+      }
+    };
+    // ------------------------------------------------------------------------------------------
 
-function render() {
-  const R = ROUTINES[cur], done = store.get(`done:${today()}:${cur}`, []);
-  document.body.dataset.r = cur;
-  $('meta[name=theme-color]').content = { am: '#e9f2f1', pm: '#14172a', body: '#1d4e6b' }[cur];
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.r === cur));
-  $('#steps').innerHTML = R.steps.map((s, i) => `
-    <article class="${done.includes(i) ? 'done' : ''}">
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const store = {
+      get(k, f) { try { const v = localStorage.getItem(k); return v === null ? f : JSON.parse(v); } catch { return f; } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { } }
+    };
+
+    // ---- Reminder server: same worker as Strength, Routine and Fortnight Shop ----
+    const WORKER = 'https://strength-push.strength-push.workers.dev';
+    const VAPID_PUBLIC = 'BEgaVhIiJCHn586sNP1UfjlJlZUolQydNk1_J0ieDrj3Df349mrXIR36dv6ifiXTYeJE1SxyijWHk4NiiNZSNmQ'; // the same public key your other apps use
+    // -----------------------------------------------------------------------------
+
+    const ORDER = ['am', 'pm', 'body'];
+    const RAMP_DAYS = 14;
+    const NIA = ROUTINES.pm.steps.findIndex(s => /niacinamide/i.test(s.t));
+
+    // ---- dates (all in this phone's local time) ----
+    const iso = d => d.toLocaleDateString('en-CA');
+    const today = () => iso(new Date());
+    const addDays = (s, n) => { const d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return iso(d); };
+    const dayNum = s => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 864e5;
+    const addMin = (t, m) => { const [h, mm] = t.split(':').map(Number), x = h * 60 + mm + m; return x >= 1440 ? null : String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0'); };
+
+    const cfg = Object.assign({ am: '05:15', pm: '21:00', body: '20:30', spf: '11:45', spfOn: true, nudge: true, niaStart: today(), on: false }, store.get('cfg2', {}));
+    store.set('cfg2', cfg);
+
+    let cur = new URLSearchParams(location.search).get('r') || (new Date().getHours() < 14 ? 'am' : 'pm');
+    if (!ROUTINES[cur]) cur = 'am';
+
+    // ---- niacinamide ramp-up: every other night for the first 14 nights ----
+    function niaInfo(date) {
+      const n = dayNum(date) - dayNum(cfg.niaStart);
+      if (n < 0 || n >= RAMP_DAYS) return { rest: false, ramp: false };
+      return { rest: n % 2 === 1, ramp: true, night: n + 1 };
+    }
+    const skipped = (k, date) => k === 'pm' && NIA >= 0 && niaInfo(date).rest ? [NIA] : [];
+    const required = (k, date) => ROUTINES[k].steps.map((_, i) => i).filter(i => !skipped(k, date).includes(i));
+    const doneList = (k, date) => store.get(`done:${date}:${k}`, []);
+    const complete = (k, date) => required(k, date).every(i => doneList(k, date).includes(i));
+
+    // ---- streak: a day counts when morning and night are both done ----
+    function streak() {
+      const faceDone = d => complete('am', d) && complete('pm', d);
+      let d = today(), n = 0;
+      if (!faceDone(d)) d = addDays(d, -1); // today still in progress
+      while (faceDone(d) && n < 3650) { n++; d = addDays(d, -1); }
+      return n;
+    }
+    function renderHistory() {
+      const t = today(), first = addDays(t, -27);
+      const pad = (new Date(first + 'T12:00:00').getDay() + 6) % 7; // weeks start on Monday
+      let html = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => `<div class="dow">${d}</div>`).join('') + '<div></div>'.repeat(pad);
+      for (let i = 0; i < 28; i++) {
+        const d = addDays(first, i), got = ORDER.filter(k => complete(k, d));
+        const label = new Date(d + 'T12:00:00').toLocaleDateString([], { month: 'short', day: 'numeric' }) + ': ' + (got.length ? got.map(k => ({ am: 'morning', pm: 'night', body: 'shower' })[k]).join(', ') + ' done' : 'nothing logged');
+        html += `<div class="day${d === t ? ' today' : ''}" role="img" aria-label="${label}" title="${label}">${+d.slice(8)}<span class="dots">${ORDER.map(k => `<i class="${got.includes(k) ? k : ''}"></i>`).join('')}</span></div>`;
+      }
+      $('#cal').innerHTML = html;
+      const n = streak();
+      $('#streak').textContent = n ? `${n}-day streak of morning and night skincare` : 'Finish morning and night today to start a streak';
+    }
+
+    function render() {
+      const R = ROUTINES[cur], t = today(), done = doneList(cur, t), skip = skipped(cur, t), req = required(cur, t);
+      const nia = niaInfo(t);
+      document.body.dataset.r = cur;
+      $('meta[name=theme-color]').content = { am: '#e9f2f1', pm: '#14172a', body: '#1d4e6b' }[cur];
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.r === cur));
+      $('#steps').innerHTML = R.steps.map((s, i) => {
+        const isSkip = skip.includes(i), isDone = done.includes(i);
+        const note = cur === 'pm' && i === NIA && nia.ramp
+          ? `<span class="note">${isSkip ? `Rest night (${nia.night} of ${RAMP_DAYS}). Skip this step tonight.` : `Use tonight (${nia.night} of ${RAMP_DAYS}).`}</span>` : '';
+        return `
+    <article class="${isDone ? 'done' : ''}${isSkip ? ' skip' : ''}">
       <div class="num">${i + 1}</div>
       <div class="body">
         <h2>${s.t}</h2>
+        ${note}
         <input class="prod" data-k="p2:${cur}:${i}" value="${esc(store.get(`p2:${cur}:${i}`, s.p))}" aria-label="Product name for ${s.t}">
         ${s.h ? `<div class="small" style="margin:-2px 0 8px">${s.h}</div>` : ''}
         <p>${s.d}</p>
-        ${s.wait ? `<button class="timer" data-s="${s.wait}">Start ${s.wait} s timer</button>` : ''}
+        ${s.wait && !isSkip ? `<button class="timer" data-s="${s.wait}">Start ${s.wait} s timer</button>` : ''}
       </div>
-      <button class="check" data-i="${i}" aria-label="Mark ${s.t} done">${done.includes(i) ? '✓' : ''}</button>
-    </article>`).join('');
-  const pct = Math.round(done.length / R.steps.length * 100);
-  $('#fill').style.width = pct + '%';
-  $('#prog').textContent = pct === 100 ? 'All done. Nice work.' : `${done.length} of ${R.steps.length} steps done`;
-}
+      ${isSkip ? '' : `<button class="check" data-i="${i}" aria-label="Mark ${s.t} done">${isDone ? '✓' : ''}</button>`}
+    </article>`;
+      }).join('');
+      const n = req.filter(i => done.includes(i)).length, pct = Math.round(n / req.length * 100);
+      $('#fill').style.width = pct + '%';
+      $('#prog').textContent = pct === 100 ? 'All done. Nice work.' : `${n} of ${req.length} steps done`;
+      renderHistory();
+    }
 
-function toggle(i) {
-  const k = `done:${today()}:${cur}`; let d = store.get(k, []);
-  d = d.includes(i) ? d.filter(x => x !== i) : [...d, i];
-  store.set(k, d); render();
-}
+    function toggle(i) {
+      const t = today(), k = `done:${t}:${cur}`, was = complete(cur, t);
+      let d = store.get(k, []);
+      d = d.includes(i) ? d.filter(x => x !== i) : [...d, i];
+      store.set(k, d); render();
+      if (cfg.on && was !== complete(cur, t)) sync().catch(() => { });
+    }
 
-function timer(btn) {
-  let n = +btn.dataset.s; btn.disabled = true; btn.textContent = `${n} s left`;
-  const iv = setInterval(() => {
-    btn.textContent = `${--n} s left`;
-    if (n <= 0) { clearInterval(iv); btn.disabled = false; btn.textContent = 'Time is up. Next step.'; navigator.vibrate && navigator.vibrate([200, 100, 200]); }
-  }, 1000);
-}
+    function timer(btn) {
+      let n = +btn.dataset.s; btn.disabled = true; btn.textContent = `${n} s left`;
+      const iv = setInterval(() => {
+        btn.textContent = `${--n} s left`;
+        if (n <= 0) { clearInterval(iv); btn.disabled = false; btn.textContent = 'Time is up. Next step.'; navigator.vibrate && navigator.vibrate([200, 100, 200]); }
+      }, 1000);
+    }
 
-// ---- ntfy ----
-const MAX_AHEAD = 71 * 3600e3; // ntfy allows delays up to 3 days
-async function post(body) {
-  const r = await fetch(cfg.server.replace(/\/+$/, ''), { method: 'POST', body: JSON.stringify(body) });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-}
-function msgFor(k) {
-  const R = ROUTINES[k];
-  return {
-    title: `${R.icon} ${R.title}`,
-    message: R.steps.map((s, i) => `${i + 1}. ${store.get(`p2:${k}:${i}`, s.p)}`).join('\n') + '\nTap for the guided steps.',
-    tags: [{ am: 'sunny', pm: 'crescent_moon', body: 'shower' }[k]],
-    click: location.origin + location.pathname + '?r=' + k
-  };
-}
-async function schedule() {
-  const now = Date.now(); const last = store.get('last2', {}); let n = 0, slots = [];
-  for (let d = 0; d <= 3; d++) for (const k of ['am', 'pm', 'body']) {
-    const [h, m] = cfg[k].split(':').map(Number), t = new Date();
-    t.setDate(t.getDate() + d); t.setHours(h, m, 0, 0); slots.push([t.getTime(), k]);
-  }
-  slots.sort((a, b) => a[0] - b[0]);
-  for (const [t, k] of slots) {
-    if (t <= Math.max(now + 30e3, last[k] || 0) || t - now > MAX_AHEAD) continue;
-    await post({ topic: cfg.topic, ...msgFor(k), delay: Math.round((t - now) / 1000) + 's' });
-    last[k] = t; store.set('last2', last); n++;
-  }
-  return n;
-}
-const queued = () => { const l = Math.max(0, ...Object.values(store.get('last2', {}))); return l ? 'Queued through ' + new Date(l).toLocaleString([], { weekday: 'short', hour: '2-digit', minute: '2-digit' }) + '.' : 'Nothing queued yet.'; };
-const status = m => $('#status').textContent = m;
-async function run() {
-  try { status('Scheduling…'); const n = await schedule(); status(`${n} new reminder${n === 1 ? '' : 's'} queued. ${queued()}`); }
-  catch (e) { status('Could not reach ntfy: ' + e.message + '. Check your connection and server address.'); }
-}
+    // ---- Web Push ----
+    const status = m => $('#status').textContent = m;
+    function deviceId() {
+      let id = store.get('pushId', '');
+      if (!/^[a-f0-9]{32}$/.test(id)) {
+        id = [...crypto.getRandomValues(new Uint8Array(16))].map(b => b.toString(16).padStart(2, '0')).join('');
+        store.set('pushId', id);
+      }
+      return id;
+    }
+    const keyBytes = k => { const s = atob(k.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((k.length + 3) % 4)); return Uint8Array.from(s, c => c.charCodeAt(0)); };
+    async function api(path, data) {
+      const r = await fetch(WORKER + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: deviceId(), ...data }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || 'Server replied ' + r.status);
+      return j;
+    }
+    async function subscription(create) {
+      const reg = await navigator.serviceWorker.ready;
+      let sub = await reg.pushManager.getSubscription();
+      if (!sub && create) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: keyBytes(VAPID_PUBLIC) });
+      return sub;
+    }
 
-// ---- wiring ----
-document.addEventListener('click', e => {
-  const t = e.target;
-  if (t.dataset.r) { cur = t.dataset.r; render(); }
-  else if (t.classList.contains('check')) toggle(+t.dataset.i);
-  else if (t.classList.contains('timer')) timer(t);
-});
-$('#steps').addEventListener('change', e => { if (e.target.dataset.k) store.set(e.target.dataset.k, e.target.value); });
-$('#gen').onclick = () => { const a = new Uint8Array(8); crypto.getRandomValues(a); $('#topic').value = 'skin-' + [...a].map(b => b.toString(36).padStart(2, '0')).join(''); };
-$('#save').onclick = async () => {
-  const n = { server: $('#server').value.trim() || 'https://ntfy.sh', topic: $('#topic').value.trim(), am: $('#am').value || '05:15', pm: $('#pm').value || '21:00', body: $('#body').value || '20:30' };
-  if (!n.topic) return status('Add or generate a topic first.');
-  if (JSON.stringify(n) !== JSON.stringify(cfg)) store.set('last2', {});
-  Object.assign(cfg, n); store.set('cfg', cfg); await run();
-};
-$('#test').onclick = async () => {
-  if (!cfg.topic) return status('Save a topic first.');
-  try { await post({ topic: cfg.topic, ...msgFor(cur) }); status('Test sent. Check your phone.'); }
-  catch (e) { status('Failed: ' + e.message); }
-};
+    const EVERY_DAY = [0, 1, 2, 3, 4, 5, 6];
+    const timesFor = t => cfg.nudge && addMin(t, 30) ? [t, addMin(t, 30)] : [t];
+    const productList = (k, skip = []) => ROUTINES[k].steps.map((s, i) => skip.includes(i) ? null : store.get(`p2:${k}:${i}`, s.p)).filter(Boolean).join(', ');
+    function reminderFor(k, extra = {}, skip = []) {
+      const R = ROUTINES[k];
+      return { tag: k, title: `${R.icon} ${R.title}`, days: EVERY_DAY, times: timesFor(cfg[k]), body: (productList(k, skip) + '. Tap for the steps.').slice(0, 200), ...extra };
+    }
+    function buildReminders() {
+      const list = [reminderFor('am'), reminderFor('body')];
+      // During the ramp-up, use-nights and rest-nights get different messages. The worker matches them by exact date;
+      // the app re-sends this list every time it opens, so the 60-day window keeps rolling forward.
+      const t = today(), rampEnd = addDays(cfg.niaStart, RAMP_DAYS - 1);
+      if (NIA >= 0 && t <= rampEnd) {
+        const use = [], rest = [];
+        for (let i = 0; i < 60; i++) { const d = addDays(t, i); (niaInfo(d).rest ? rest : use).push(d); }
+        list.push(reminderFor('pm', { dates: use }));
+        if (rest.length) list.push(reminderFor('pm', { dates: rest, title: '🌙 Night skincare (niacinamide rest night)' }, [NIA]));
+      } else list.push(reminderFor('pm'));
+      if (cfg.spfOn) list.push({
+        tag: 'spf', title: '🧴 Reapply sunscreen', days: EVERY_DAY, times: [cfg.spf],
+        body: 'Two finger-lengths over face, neck and ears before you head out. Pat gently so you don\'t smear the morning layer.'
+      });
+      return list;
+    }
+    function doneToday() { return { date: today(), tags: ORDER.filter(k => complete(k, today())) }; }
+    async function sync(create = false) {
+      const sub = await subscription(create);
+      if (!sub) throw new Error('This device is not subscribed. Tap Turn on reminders.');
+      await api('/sync', { sub: sub.toJSON(), tz: Intl.DateTimeFormat().resolvedOptions().timeZone, reminders: buildReminders(), done: doneToday() });
+    }
+    const onText = () => `On: morning ${cfg.am}${cfg.spfOn ? `, sunscreen ${cfg.spf}` : ''}, shower ${cfg.body}, night ${cfg.pm}${cfg.nudge ? ', with 30-minute nudges' : ''}.`;
+    function readForm() {
+      ['am', 'pm', 'body', 'spf', 'niaStart'].forEach(k => cfg[k] = $('#' + k).value || cfg[k]);
+      cfg.nudge = $('#nudge').checked; cfg.spfOn = $('#spfOn').checked;
+      store.set('cfg2', cfg);
+    }
+    async function turnOn() {
+      readForm(); render();
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) return status('This browser cannot receive push notifications. Install the app from Chrome first.');
+      if (VAPID_PUBLIC.startsWith('PASTE')) return status('Add your VAPID public key at the top of the script in index.html.');
+      status('Saving…');
+      if (await Notification.requestPermission() !== 'granted') return status('Notifications are blocked. Allow them for this app in your phone settings, then try again.');
+      try { await sync(true); cfg.on = true; store.set('cfg2', cfg); status(onText()); $('#save').textContent = 'Save'; }
+      catch (e) { status('Could not turn on reminders: ' + e.message); }
+    }
+    async function turnOff() {
+      try {
+        await api('/remove', {});
+        const sub = await subscription(false); if (sub) await sub.unsubscribe();
+        cfg.on = false; store.set('cfg2', cfg); status('Reminders are off on this device.'); $('#save').textContent = 'Turn on reminders';
+      } catch (e) { status('Could not turn off reminders: ' + e.message); }
+    }
 
-$('#date').textContent = new Date().toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
-['server', 'topic', 'am', 'pm', 'body'].forEach(k => $('#' + k).value = cfg[k]);
-$('#cfg').open = !cfg.topic;
-status(queued());
-render();
-if (cfg.topic) run();
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-</script>
+    // ---- wiring ----
+    document.addEventListener('click', e => {
+      const t = e.target;
+      if (t.dataset.r) { cur = t.dataset.r; render(); }
+      else if (t.classList.contains('check')) toggle(+t.dataset.i);
+      else if (t.classList.contains('timer')) timer(t);
+    });
+    $('#steps').addEventListener('change', e => { if (e.target.dataset.k) { store.set(e.target.dataset.k, e.target.value); if (cfg.on) sync().catch(() => { }); } });
+    $('#save').onclick = turnOn;
+    $('#off').onclick = turnOff;
+    $('#test').onclick = async () => {
+      if (!cfg.on) return status('Turn on reminders first.');
+      try { await api('/test', {}); status('Test sent. It should arrive within a few seconds.'); }
+      catch (e) { status('Test failed: ' + e.message); }
+    };
+
+    $('#date').textContent = new Date().toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+    ['am', 'pm', 'body', 'spf', 'niaStart'].forEach(k => $('#' + k).value = cfg[k]);
+    $('#nudge').checked = cfg.nudge; $('#spfOn').checked = cfg.spfOn;
+    $('#cfg').open = !cfg.on;
+    render();
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+    if (cfg.on) {
+      $('#save').textContent = 'Save';
+      status(onText());
+      // Re-send on every open: keeps the subscription fresh, rolls the niacinamide dates forward,
+      // and passes on edited product names and today's progress.
+      sync().catch(e => status('Reminders need attention: ' + e.message));
+    } else status('Off.');
+    // A new day starts while the app is open (e.g. left open overnight): refresh the view.
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+  </script>
 </body>
+
 </html>

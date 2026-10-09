@@ -1,4 +1,4 @@
-const CACHE = 'skin-ritual-v1';
+const CACHE = 'skin-ritual-v3';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -13,8 +13,8 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-// Network first so updates from GitHub Pages show up, cache as the offline fallback.
-// Requests to ntfy (another origin) are never touched.
+// Network first so new deploys from Netlify show up; cache is the offline fallback.
+// Requests to the reminder worker (another origin) are never touched.
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
@@ -27,4 +27,32 @@ self.addEventListener('fetch', e => {
       })
       .catch(() => caches.match(req, { ignoreSearch: true }).then(m => m || caches.match('index.html')))
   );
+});
+
+// The worker sends { title, body, tag }. tag is the routine (am, pm, body), spf for the sunscreen reapply, or test.
+self.addEventListener('push', e => {
+  let msg = {};
+  try { msg = e.data ? e.data.json() : {}; } catch { msg = { body: e.data && e.data.text() }; }
+  const tag = msg.tag || 'note';
+  e.waitUntil(self.registration.showNotification(msg.title || 'Skin Ritual', {
+    body: msg.body || '',
+    tag,
+    renotify: true,
+    icon: 'icon-192.png',
+    badge: 'icon-192.png',
+    data: { url: { am: './?r=am', pm: './?r=pm', body: './?r=body', spf: './?r=am' }[tag] || './' },
+  }));
+});
+
+// Tapping a reminder opens the app on that routine, reusing an open window if there is one.
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = new URL(e.notification.data && e.notification.data.url || './', self.registration.scope).href;
+  e.waitUntil((async () => {
+    const wins = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const w of wins) {
+      if (w.url.startsWith(self.registration.scope)) { await w.focus(); return w.navigate(url); }
+    }
+    return self.clients.openWindow(url);
+  })());
 });
